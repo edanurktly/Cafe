@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Cafe.Controllers
+namespace Cafe.Areas.Customer.Controllers
 {
+	[Area("Customer")]
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -17,7 +18,30 @@ namespace Cafe.Controllers
 		{
 			return View();
 		}
-
+		public IActionResult Contact()
+		{
+			return View();
+		}
+		public IActionResult Blog()
+		{
+			return View();
+		}
+		public IActionResult About()
+		{
+			return View();
+		}
+		public IActionResult Galeri()
+		{
+			return View();
+		}
+		public IActionResult Rezervasyon()
+		{
+			return View();
+		}
+		public IActionResult Menu()
+		{
+			return View();
+		}
 		public IActionResult Privacy()
 		{
 			return View();

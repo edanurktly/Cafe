@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Cafe.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Data
@@ -8,6 +9,10 @@ namespace Cafe.Data
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
+
 		}
+		public DbSet<Category> Categories { get; set; }
+		public DbSet<Menu> Menus { get; set; }
+
 	}
 }
