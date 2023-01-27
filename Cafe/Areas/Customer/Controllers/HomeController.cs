@@ -1,5 +1,7 @@
-﻿using Cafe.Models;
+﻿using Cafe.Data;
+using Cafe.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Cafe.Areas.Customer.Controllers
@@ -8,15 +10,24 @@ namespace Cafe.Areas.Customer.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly ApplicationDbContext _db;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
 		{
 			_logger = logger;
+			_db = db;
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			var menu = _db.Menus.Where(i => i.Ozel).ToList();
+			return View(menu);
+		}
+		public IActionResult CategoryDetails(int? id)
+		{
+			var menu = _db.Menus.Where(i => i.CategoryId == id).ToList();
+			ViewBag.KategoriId = id;
+			return View(menu);
 		}
 		public IActionResult Contact()
 		{
@@ -38,9 +49,26 @@ namespace Cafe.Areas.Customer.Controllers
 		{
 			return View();
 		}
+
+		// POST: Admin/Rezervasyon/Create
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Rezervasyon([Bind("Id,Name,Email,TelefonNo,Sayi,Saat,Tarih")] Rezervasyon rezervasyon)
+		{
+			if (ModelState.IsValid)
+			{
+				_db.Add(rezervasyon);
+				await _db.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(rezervasyon);
+		}
 		public IActionResult Menu()
 		{
-			return View();
+			var menu = _db.Menus.ToList();
+			return View(menu);
 		}
 		public IActionResult Privacy()
 		{

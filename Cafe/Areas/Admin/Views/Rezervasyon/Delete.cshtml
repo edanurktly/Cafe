@@ -1,4 +1,4 @@
-﻿@model Cafe.Models.Menu
+﻿@model Cafe.Models.Rezervasyon
 
 @{
     ViewData["Title"] = "Delete";
@@ -9,43 +9,44 @@
 
 <h3>Bu Kaydı Silmek İstediğinizden Emin Misiniz?</h3>
 <div>
-    
+    <h4>Rezervasyon</h4>
+    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Başlık
+           Adı
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-           Açıklama
+            Email
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-           Resim
+            Telefon No
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
+            @Html.DisplayFor(model => model.TelefonNo)
         </dd>
         <dt class = "col-sm-2">
-           Ozel
+            Sayı
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ozel)
+            @Html.DisplayFor(model => model.Sayi)
         </dd>
         <dt class = "col-sm-2">
-            Fiyat
+            Saat
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Saat)
         </dd>
         <dt class = "col-sm-2">
-           Category
+            Tarih
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Name)
+            @Html.DisplayFor(model => model.Tarih)
         </dd>
     </dl>
     

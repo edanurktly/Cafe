@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Cafe.Models.Menu>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CategoryDetails";
     Layout = "~/Views/Shared/_ALayout.cshtml";
 }
 
@@ -76,48 +76,59 @@
 
 
 
-	
+
 </div>
 
 
 <section class="section-lunch bgwhite">
-	
+
 
 	<div class="container">
 		<div class="row p-t-10">
-			@foreach (var item in Model)
+			@if (Model.Count()>0)
+			{
+						@foreach (var item in Model)
 			{
 				<div class="col-md-12 col-lg-6 ">
 					<!-- Block3 -->
 					<div class="blo3 flex-w flex-col-l-sm m-b-30">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a ><img src="@item.Image" alt="IMG-MENU"></a>
+							<a><img src="@item.Image" alt="IMG-MENU"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
-							<a  class="txt21 m-b-3">
-							  @item.Title
+							<a class="txt21 m-b-3">
+								@item.Title
 							</a>
 
 							<span class="txt23">
-							@item.Description
+								@item.Description
 							</span>
 
 							<span class="txt22 m-t-20">
-							@item.Price (₺)
+								@item.Price (₺)
 							</span>
 						</div>
 					</div>
 
 
 				</div>
+				}
 			}
-			
+			else
+			{
+				<div class="alert alert-warning text-center">
+					Herhangi bir menü bulunmamaktadır....
+					</div>
+			}
+	
 
-			
+
+
 		</div>
 	</div>
 </section>
+
 
 
 
