@@ -1,7 +1,7 @@
 ﻿using Cafe.Data;
 using Cafe.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using System.Diagnostics;
 
 namespace Cafe.Areas.Customer.Controllers
@@ -11,11 +11,15 @@ namespace Cafe.Areas.Customer.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 		private readonly ApplicationDbContext _db;
+		private readonly IToastNotification _toast;
+		private readonly IWebHostEnvironment _he;
 
-		public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+		public HomeController(ILogger<HomeController> logger, ApplicationDbContext db, IToastNotification toast, IWebHostEnvironment he)
 		{
 			_logger = logger;
 			_db = db;
+			_toast = toast;
+			_he = he;
 		}
 
 		public IActionResult Index()
@@ -39,11 +43,13 @@ namespace Cafe.Areas.Customer.Controllers
 		}
 		public IActionResult About()
 		{
-			return View();
+			var about = _db.Abouts.ToList();
+			return View(about);
 		}
 		public IActionResult Galeri()
 		{
-			return View();
+			var galeri = _db.Galeris.ToList();
+			return View(galeri);
 		}
 		public IActionResult Rezervasyon()
 		{
@@ -61,6 +67,7 @@ namespace Cafe.Areas.Customer.Controllers
 			{
 				_db.Add(rezervasyon);
 				await _db.SaveChangesAsync();
+				_toast.AddSuccessToastMessage("Teşekkür Ederiz Rezervasyon İşleminiz başarıyla gerçekleşti...");
 				return RedirectToAction(nameof(Index));
 			}
 			return View(rezervasyon);
