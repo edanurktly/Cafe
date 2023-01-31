@@ -1,5 +1,7 @@
 using Cafe.Data;
+using Cafe.Email;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
 
@@ -24,9 +26,12 @@ namespace Cafe
 			});
 
 
-			builder.Services.AddDefaultIdentity<IdentityUser>()
+			builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
-			builder.Services.AddControllersWithViews();
+			builder.Services.AddSingleton<IEmailSender, EmailSender>();
+			builder.Services.AddControllersWithViews()
+				.AddRazorRuntimeCompilation();
+			builder.Services.AddRazorPages();
 
 			var app = builder.Build();
 
