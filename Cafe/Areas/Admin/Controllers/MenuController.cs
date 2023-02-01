@@ -1,5 +1,6 @@
 ﻿using Cafe.Data;
 using Cafe.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Cafe.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class MenuController : Controller
     {
         private readonly ApplicationDbContext _context;

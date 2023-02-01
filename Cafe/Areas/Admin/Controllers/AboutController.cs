@@ -1,11 +1,13 @@
 ﻿using Cafe.Data;
 using Cafe.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AboutController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Cafe.Data;
+﻿using Cafe.Data;
 using Cafe.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class RezervasyonController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,9 +20,9 @@ namespace Cafe.Areas.Admin.Controllers
         // GET: Admin/Rezervasyon
         public async Task<IActionResult> Index()
         {
-              return _context.Rezervasyons != null ? 
-                          View(await _context.Rezervasyons.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Rezervasyons'  is null.");
+            return _context.Rezervasyons != null ?
+                        View(await _context.Rezervasyons.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Rezervasyons'  is null.");
         }
 
         // GET: Admin/Rezervasyon/Details/5
@@ -151,14 +148,14 @@ namespace Cafe.Areas.Admin.Controllers
             {
                 _context.Rezervasyons.Remove(rezervasyon);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RezervasyonExists(int id)
         {
-          return (_context.Rezervasyons?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Rezervasyons?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
